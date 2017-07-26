@@ -1,4 +1,6 @@
-﻿Shader "Hidden/Volund/Unique Shadow Depth Only" {
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Hidden/Volund/Unique Shadow Depth Only" {
 
 CGINCLUDE
 	#pragma only_renderers d3d11 d3d9 opengl
@@ -20,7 +22,7 @@ CGINCLUDE
 
 	v2f vert(a2v v) {
 		v2f o;
-		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		o.pos = UnityObjectToClipPos(v.vertex);
 		o.pos.z = max(UNITY_NEAR_CLIP_VALUE, o.pos.z);
 		o.uv = v.uv * _MainTex_ST.xy + _MainTex_ST.zw;
 		return o;
